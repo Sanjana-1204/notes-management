@@ -1,4 +1,4 @@
-import getIndianTime from '../utils/date.js';
+import { getIndianTime } from '../utils/date.js';
 
 const loggerMiddleware = (req, res, next) => {
     // Record the time when the request arrives
