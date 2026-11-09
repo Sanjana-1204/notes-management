@@ -6,6 +6,7 @@ import loggerMiddleware from './middleware/logger.middleware.js';
 import { globalErrorHandler, AppError } from './middleware/error.middleware.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerSpec from './config/swagger.js';
+import router from './routes/index.js';
 class App {
 
     constructor() {
@@ -44,7 +45,7 @@ class App {
     }
 
     initializeRoutes() {
-        // routes will be initialized here in the future, for now we only have a health check route
+        this.app.use('/api/v1', router);
     }
 
     initializeErrorHandling() {
