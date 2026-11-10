@@ -1,0 +1,370 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f6fa;
+    color: #252a34;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+    padding: 10px 16px;
+    background: #4f46e5;
+    color: white;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+button:hover {
+    background: #4338ca;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Authentication */
+
+.auth-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-form {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    padding: 36px;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.auth-form h1 {
+    font-size: 27px;
+}
+
+.auth-form p {
+    color: #667085;
+    font-size: 14px;
+}
+
+.auth-form input,
+.create-note-form input,
+.search-form input,
+.editor-title {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #dfe2e8;
+    border-radius: 7px;
+    outline: none;
+    font-size: 14px;
+}
+
+.auth-form input:focus,
+.create-note-form input:focus,
+.search-form input:focus,
+.editor-title:focus {
+    border-color: #6366f1;
+}
+
+.text-button {
+    background: none;
+    color: #4f46e5;
+    padding: 0;
+}
+
+.text-button:hover {
+    background: none;
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #dc2626 !important;
+    font-size: 14px;
+}
+
+/* Dashboard */
+
+.dashboard {
+    min-height: 100vh;
+}
+
+.dashboard header {
+    background: white;
+    padding: 20px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.dashboard header h1 {
+    font-size: 22px;
+}
+
+.dashboard header div {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.dashboard header span {
+    font-size: 14px;
+    color: #667085;
+}
+
+/* Notes page */
+
+.notes-container {
+    max-width: 1050px;
+    margin: 45px auto;
+    padding: 0 24px;
+}
+
+.notes-heading {
+    margin-bottom: 25px;
+}
+
+.notes-heading h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.notes-heading p {
+    color: #667085;
+    font-size: 14px;
+}
+
+.create-note-form,
+.search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.create-note-form input,
+.search-form input {
+    flex: 1;
+}
+
+.notes-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.note-card {
+    background: white;
+    border: 1px solid #e8eaf0;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.note-card:hover {
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+.note-card-content h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.note-card-content p {
+    color: #667085;
+    font-size: 14px;
+    margin-bottom: 10px;
+    overflow-wrap: anywhere;
+}
+
+.note-card-content small {
+    color: #98a2b3;
+    font-size: 11px;
+}
+
+.delete-button {
+    align-self: flex-start;
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.delete-button:hover {
+    background: #fecaca;
+}
+
+/* Note editor */
+
+.note-editor {
+    background: white;
+    min-height: 85vh;
+    max-width: 1000px;
+    margin: 35px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.editor-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.editor-header button {
+    background: #eef2ff;
+    color: #4338ca;
+}
+
+.editor-header button:hover {
+    background: #e0e7ff;
+}
+
+.save-status {
+    font-size: 13px;
+    color: #667085;
+}
+
+.editor-title {
+    font-size: 25px;
+    font-weight: 700;
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 0;
+    padding: 12px 0;
+    margin-bottom: 20px;
+}
+
+.editor-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.editor-toolbar button {
+    background: #f1f2f6;
+    color: #344054;
+    font-size: 12px;
+    padding: 8px 12px;
+}
+
+.editor-toolbar button:hover,
+.editor-toolbar button.active {
+    background: #e0e7ff;
+    color: #4338ca;
+}
+
+.editor-content {
+    min-height: 400px;
+    padding: 25px 5px;
+    line-height: 1.7;
+}
+
+.ProseMirror {
+    min-height: 350px;
+    outline: none;
+}
+
+.ProseMirror p {
+    margin-bottom: 12px;
+}
+
+.ProseMirror h1 {
+    font-size: 28px;
+    margin: 20px 0 12px;
+}
+
+.ProseMirror h2 {
+    font-size: 23px;
+    margin: 18px 0 10px;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+    padding-left: 25px;
+    margin-bottom: 15px;
+}
+
+.ProseMirror a {
+    color: #4f46e5;
+    text-decoration: underline;
+}
+
+.ProseMirror pre {
+    background: #1e293b;
+    color: #f8fafc;
+    padding: 16px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 15px 0;
+}
+
+.ProseMirror code {
+    background: #eef0f5;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+/* Mobile responsiveness */
+
+@media (max-width: 600px) {
+    .dashboard header {
+        padding: 16px;
+    }
+
+    .dashboard header span {
+        display: none;
+    }
+
+    .notes-container {
+        margin: 25px auto;
+        padding: 0 16px;
+    }
+
+    .create-note-form,
+    .search-form {
+        flex-wrap: wrap;
+    }
+
+    .create-note-form input,
+    .search-form input {
+        flex-basis: 100%;
+    }
+
+    .note-editor {
+        margin: 12px;
+        padding: 18px;
+    }
+
+    .auth-form {
+        padding: 25px;
+    }
+}
