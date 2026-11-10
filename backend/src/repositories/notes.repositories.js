@@ -44,9 +44,14 @@ const deleteByIdAndUser = async (noteId, userId) => {
 
 // Search notes by title or content
 const searchByUser = async (userId, query) => {
+    // treat the query as a literal string and escape any special regex characters
+    // then create a case-insensitive regex pattern to search for the query in both title and contentText fields
     const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const searchRegex = new RegExp(escapedQuery, 'i');
 
+
+    // Search for notes that belong to the user
+    // Match either the title or contentText fields against the search regex
     return Note.find({
         userId,
         $or: [

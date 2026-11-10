@@ -1,3 +1,4 @@
+// create and throw a custom error class to handle application-specific errors
 class AppError extends Error {
     constructor(message, statusCode) {
         super(message);
@@ -9,6 +10,8 @@ class AppError extends Error {
         Error.captureStackTrace(this, this.constructor);
     }
 }
+
+// Handle Mongoose validation errors and return a formatted error message
 const handleValidationError = (error) => {
     const messages = Object.values(error.errors).map(
         (err) => err.message
@@ -17,10 +20,12 @@ const handleValidationError = (error) => {
     return new AppError(messages.join('. '), 400);
 };
 
+// Global error handling middleware to catch and respond to errors in a consistent format
 const globalErrorHandler = (error, req, res, next) => {
     error.statusCode = error.statusCode || 500;
     error.status = error.status || 'error';
 
+    // Handle Mongoose validation errors specifically
     if (error.name === 'ValidationError') {
         error = handleValidationError(error);
     }

@@ -1,6 +1,7 @@
 import { verifyToken } from '../utils/auth.js';
 import { AppError } from './error.middleware.js';
 
+// Authentication middleware to verify JWT tokens and attach user info to the request object
 const authenticate = (req, res, next) => {
     try {
         const authHeader = req.headers.authorization;

@@ -2,6 +2,7 @@ import { rateLimit } from 'express-rate-limit';
 import { RedisStore } from 'rate-limit-redis';
 import { redisClient } from '../config/redis-db.js';
 
+// Create a rate limiter with customizable options for window size, request limit, Redis prefix, and key generation
 const createLimiter = ({ windowMs, limit, prefix, keyGenerator }) => {
     return rateLimit({
         windowMs,

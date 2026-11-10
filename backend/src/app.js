@@ -10,7 +10,6 @@ import router from './routes/index.js';
 class App {
 
     constructor() {
-        // Create Express application
         this.app = express();
         // for now we only have development environment, but we can add more environments like production, testing, etc. in the future
         this.env = DOT_ENV.NODE_ENV || 'development';
@@ -29,7 +28,7 @@ class App {
             cors({
                 origin: 'http://localhost:5173',
                 credentials: true,
-                methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], // Allow specific HTTP methods
+                methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], // Allow specific HTTP methods only
                 allowedHeaders: '*',
             })
         );
@@ -39,7 +38,7 @@ class App {
         this.app.use(loggerMiddleware);
 
     }
-
+    // Initialize Swagger for API documentation and testing
     initializeSwagger() {
         this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
     }
@@ -48,6 +47,8 @@ class App {
         this.app.use('/api/v1', router);
     }
 
+    // Initialize error handling middleware for unhandled routes and global error handling
+    // For not found routes, we create a new AppError and pass it to the next middleware specifically.
     initializeErrorHandling() {
         this.app.use((req, res, next) => {
             next(new AppError(`Route not found: ${req.originalUrl}`, 404));

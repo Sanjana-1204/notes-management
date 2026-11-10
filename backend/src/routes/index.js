@@ -5,8 +5,8 @@ import noteRoutes from './notes.routes.js';
 
 const router = Router();
 
-router.use('/health', healthRoutes);
 router.use('/auth', authRoutes);
 router.use('/notes', noteRoutes);
+router.use('/health', healthRoutes);
 
 export default router;
