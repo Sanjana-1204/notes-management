@@ -212,7 +212,7 @@ The cache uses a configurable TTL through the `CACHE_TTL` environment variable. 
 
 MongoDB remains the source of truth.
 
-See [Redis Implementation](docs/REDIS.md) for further details.
+See [Redis Implementation](docs/redis.md) for further details.
 
 ## Running Tests
 
@@ -230,10 +230,10 @@ Ensure your test MongoDB database and Redis instance are accessible before runni
 
 Additional documentation is available in the `docs/` directory:
 
-- [Architecture](docs/ARCHITECTURE.md) — application structure, request flow, database design, and authentication.
-- [Redis Implementation](docs/REDIS.md) — caching strategy, invalidation, TTL, and rate limiting.
-- [Technical Decisions](docs/TECHNICAL_DECISIONS.md) — technology choices and architectural decisions.
-- [Editor Selection](docs/EDITOR_SELECTION.md) — rich-text editor evaluation and licensing considerations.
+- [Architecture](docs/architecture.md) — application structure, request flow, database design, and authentication.
+- [Redis Implementation](docs/redis.md) — caching strategy, invalidation, TTL, and rate limiting.
+- [Technical Decisions](docs/technical-decisions.md) — technology choices and architectural decisions.
+- [Editor Selection](docs/text-editor.md) — rich-text editor evaluation and licensing considerations.
 
 ## Security Considerations
 
