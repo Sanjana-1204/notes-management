@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import notesRepository from '../repositories/notes.repositories.js';
 import { AppError } from '../middleware/error.middleware.js';
+import cache from '../utils/redis-cache.js';
 
 // Extract plain text from a TipTap (ProseMirror) document
 const extractText = (node) => {
@@ -57,28 +58,52 @@ const createNote = async (data, userId) => {
 
     const contentText = extractText(content).replace(/\s+/g, ' ').trim();
 
-    return notesRepository.create({
+    const note = await notesRepository.create({
         title: title.trim(),
         content,
         contentText,
         userId
     });
+    await cache.deleteCache(`notes:list:${userId}`);
+    return note;
 };
 
 // Get all notes belonging to a user
 const getNotes = async (userId) => {
-    return notesRepository.findAllByUser(userId);
+    const cacheKey = `notes:list:${userId}`;
+
+    const cachedNotes = await cache.getCache(cacheKey);
+
+    if (cachedNotes) {
+        return cachedNotes;
+    }
+
+    const notes = await notesRepository.findAllByUser(userId);
+
+    await cache.setCache(cacheKey, notes);
+
+    return notes;
 };
 
 // Get one note
 const getNote = async (noteId, userId) => {
     validateNoteId(noteId);
 
+    const cacheKey = `notes:${userId}:${noteId}`;
+
+    const cachedNote = await cache.getCache(cacheKey);
+
+    if (cachedNote) {
+        return cachedNote;
+    }
+
     const note = await notesRepository.findByIdAndUser(noteId, userId);
 
     if (!note) {
         throw new AppError('Note not found', 404);
     }
+
+    await cache.setCache(cacheKey, note);
 
     return note;
 };
@@ -122,30 +147,39 @@ const updateNote = async (noteId, userId, updates) => {
         throw new AppError('No valid fields provided for update', 400);
     }
 
-    const note = await notesRepository.updateByIdAndUser(
+    const updatedNote = await notesRepository.updateByIdAndUser(
         noteId,
         userId,
         updateData
     );
 
-    if (!note) {
+    if (!updatedNote) {
         throw new AppError('Note not found', 404);
     }
 
-    return note;
+    await cache.deleteCache(`notes:list:${userId}`);
+    await cache.deleteCache(`notes:${userId}:${noteId}`);
+
+    return updatedNote;
 };
 
 // Delete a note
 const deleteNote = async (noteId, userId) => {
     validateNoteId(noteId);
 
-    const note = await notesRepository.deleteByIdAndUser(noteId, userId);
+    const deletedNote = await notesRepository.deleteByIdAndUser(
+        noteId,
+        userId
+    );
 
-    if (!note) {
+    if (!deletedNote) {
         throw new AppError('Note not found', 404);
     }
 
-    return note;
+    await cache.deleteCache(`notes:list:${userId}`);
+    await cache.deleteCache(`notes:${userId}:${noteId}`);
+
+    return deletedNote;
 };
 
 // Search notes by title or content

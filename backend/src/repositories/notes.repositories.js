@@ -28,7 +28,7 @@ const updateByIdAndUser = async (noteId, userId, updates) => {
         },
         updates,
         {
-            new: true,
+            returnDocument: 'after',
             runValidators: true
         }
     );

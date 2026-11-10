@@ -8,7 +8,8 @@ const DOT_ENV = {
     JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
     DATABASE_CONNECTION_STRING: process.env.DATABASE_CONNECTION_STRING,
     REDIS_URL: process.env.REDIS_URL,
-    CACHE_TTL: Number(process.env.CACHE_TTL)
+    CACHE_TTL: Number(process.env.CACHE_TTL),
+    TEST_DATABASE_CONNECTION_STRING: process.env.TEST_DATABASE_CONNECTION_STRING
 };
 
 export default DOT_ENV;
