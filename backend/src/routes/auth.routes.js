@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import authController from '../controllers/auth.controllers.js';
+import { loginLimiter } from '../middleware/rate-limit.middleware.js';
 
 const router = Router();
 
@@ -76,6 +77,6 @@ router.post('/register', authController.register);
  *       401:
  *         description: Invalid credentials
  */
-router.post('/login', authController.login);
+router.post('/login', loginLimiter, authController.login);
 
 export default router;

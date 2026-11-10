@@ -1,6 +1,10 @@
 import { Router } from 'express';
 import notesController from '../controllers/notes.controllers.js';
 import authenticate from '../middleware/auth.middleware.js';
+import {
+    createNoteLimiter,
+    updateNoteLimiter
+} from '../middleware/rate-limit.middleware.js';
 
 const router = Router();
 
@@ -87,7 +91,7 @@ router.use(authenticate);
  *       401:
  *         description: Unauthorized
  */
-router.post('/', notesController.createNote);
+router.post('/', createNoteLimiter, notesController.createNote);
 
 // Get all notes belonging to the logged-in user
 /**
@@ -196,7 +200,7 @@ router.get('/:id', notesController.getNote);
  *       404:
  *         description: Note not found
  */
-router.patch('/:id', notesController.updateNote);
+router.patch('/:id', updateNoteLimiter, notesController.updateNote);
 
 // Delete a note
 /**
